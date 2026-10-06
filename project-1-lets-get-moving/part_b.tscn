@@ -1,0 +1,71 @@
+[gd_scene format=3 uid="uid://cgnl8iemg6fj8"]
+
+[ext_resource type="Script" uid="uid://banmkhbpf2wet" path="res://player_3d.gd" id="1_id878"]
+[ext_resource type="Texture2D" uid="uid://c0k810cq2h7us" path="res://Assets/SpaceBG-8x.png" id="1_nsn63"]
+[ext_resource type="Texture2D" uid="uid://b0fe0d8a2vk1s" path="res://Assets/Planet_Ishtar.png" id="2_id878"]
+[ext_resource type="Texture2D" uid="uid://pxgsmcxex48i" path="res://Assets/Planet_Marduk.png" id="3_3sstj"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_y244p"]
+sky_top_color = Color(0, 0, 0, 1)
+sky_horizon_color = Color(0, 0, 0, 1)
+ground_bottom_color = Color(0, 0, 0, 1)
+ground_horizon_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Sky" id="Sky_2i18j"]
+sky_material = SubResource("ProceduralSkyMaterial_y244p")
+
+[sub_resource type="Environment" id="Environment_3a1t7"]
+background_mode = 2
+sky = SubResource("Sky_2i18j")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mxyc4"]
+shading_mode = 0
+albedo_color = Color(0.5472106, 0.2898433, 0.6751383, 1)
+
+[sub_resource type="TorusMesh" id="TorusMesh_0fbbt"]
+material = SubResource("StandardMaterial3D_mxyc4")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cm7y8"]
+albedo_texture = ExtResource("1_nsn63")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_0fbbt"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hvux6"]
+albedo_texture = ExtResource("2_id878")
+
+[sub_resource type="SphereMesh" id="SphereMesh_i1o4x"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wstyt"]
+albedo_texture = ExtResource("3_3sstj")
+
+[node name="Part_B" type="Node3D" unique_id=1457164235]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1246430452]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+light_color = Color(0.46618086, 0.4661808, 0.4661808, 1)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1375268410]
+environment = SubResource("Environment_3a1t7")
+
+[node name="Player3D" type="MeshInstance3D" parent="." unique_id=1228057935]
+mesh = SubResource("TorusMesh_0fbbt")
+script = ExtResource("1_id878")
+
+[node name="Camera3D" type="Camera3D" parent="Player3D" unique_id=548485593]
+transform = Transform3D(1, 0, 0, 0, 0.98404974, 0.1778937, 0, -0.1778937, 0.98404974, 0, 0.995, 2.067)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1883609761]
+transform = Transform3D(150, 0, 0, 0, 100, 0, 0, 0, 120, 0, -0.5, 0)
+material_override = SubResource("StandardMaterial3D_cm7y8")
+mesh = SubResource("PlaneMesh_0fbbt")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1769605093]
+transform = Transform3D(30, 0, 0, 0, 30, 0, 0, 0, 30, -50, 15.797546, -40)
+material_override = SubResource("StandardMaterial3D_hvux6")
+mesh = SubResource("SphereMesh_i1o4x")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="." unique_id=1755478737]
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 38.46434, 15.797546, 99.14586)
+material_override = SubResource("StandardMaterial3D_wstyt")
+mesh = SubResource("SphereMesh_i1o4x")
