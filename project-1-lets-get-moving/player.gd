@@ -5,16 +5,17 @@ var normal_speed = 100.0
 var sprint_speed = 200.0
 var frame_red = true
 var frame_purple = false
+var frame_green = false
+var frame_blue = false
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	frame = 0
 	frame_red = true
 	frame_purple = false
-	pass # Replace with function body.
+	frame_green = false
+	frame_blue = false
+	pass
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 # Sprint input includes animation change (thrusters depending on sprite color).
 func _process(delta: float) -> void:
 	if Input.is_action_pressed("sprint") and frame_red:
@@ -29,6 +30,18 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_released("sprint") and frame_purple:
 		move_speed = normal_speed
 		frame = 2
+	if Input.is_action_pressed("sprint") and frame_green:
+		move_speed = sprint_speed
+		frame = 5
+	if Input.is_action_just_released("sprint") and frame_green:
+		move_speed = normal_speed
+		frame = 4
+	if Input.is_action_pressed("sprint") and frame_blue:
+		move_speed = sprint_speed
+		frame = 7
+	if Input.is_action_just_released("sprint") and frame_blue:
+		move_speed = normal_speed
+		frame = 6
 # Basic directional inputs include directional rotation of the sprite.
 	if Input.is_action_pressed("move_right"):
 		position += Vector2(1,0) * move_speed * delta
@@ -54,12 +67,21 @@ func _process(delta: float) -> void:
 	if Input.is_action_pressed("move_left") and Input.is_action_pressed("move_down"):
 		rotation_degrees = 225.0
 # Cyclical color changing input with variable tracking:
-	if Input.is_action_just_pressed("change_color") and frame_red and not frame_purple:
+	if Input.is_action_just_pressed("change_color") and frame_red:
 		frame = 2
 		frame_red = false
 		frame_purple = true
-	if Input.is_action_just_pressed("change_color") and frame_purple and not frame_red:
-		frame = 0
-		frame_red = true
+	else: if Input.is_action_just_pressed("change_color") and frame_purple:
+		frame = 4
 		frame_purple = false
+		frame_green = true
+	else: if Input.is_action_just_pressed("change_color") and frame_green:
+		frame = 6
+		frame_green = false
+		frame_blue = true
+	else:if Input.is_action_just_pressed("change_color") and frame_blue:
+		frame = 0
+		frame_blue = false
+		frame_red = true
+	
 	pass
